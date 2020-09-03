@@ -12,6 +12,7 @@ export const plugin: FastifyPluginAsync<SsePluginOptions> =
           this.raw.setHeader("Connection", "keep-alive");
           this.raw.setHeader("Cache-Control", "no-cache,no-transform");
           this.raw.setHeader("x-no-compression", 1);
+          this.raw.setHeader("Access-Control-Allow-Origin", "*");
           this.raw.write(serializeSSEEvent({retry: options.retryDelay || 3000}));
           toStream(transformAsyncIterable(source)).pipe(this.raw);
         });
